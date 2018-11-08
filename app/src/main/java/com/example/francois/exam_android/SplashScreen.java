@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.widget.Toast;
 
+import org.json.JSONArray;
 import org.json.JSONObject;
 
 import java.io.BufferedReader;
@@ -20,7 +21,7 @@ import java.net.URL;
 public class SplashScreen extends AppCompatActivity {
 
     private final static String TAG = "NetworkActivity";
-    JSONObject jsonTreated = new JSONObject();
+    JSONArray jsonTreated = new JSONArray();
 
     private static int SPLASH_TIME_OUT = 3000;
 
@@ -60,15 +61,18 @@ public class SplashScreen extends AppCompatActivity {
                 int compteur = 1;
 
                 for(int i=0;i<jsonObject.getJSONArray("data").length();i++){
-                    if ((jsonObject.getJSONArray("data").getJSONObject(i).getString("type").equals("Hotel")) || (jsonObject.getJSONArray("data").getJSONObject(i).getString("type").equals("restaurant")) || (jsonObject.getJSONArray("data").getJSONObject(i).getString("type").equals("city")) || (jsonObject.getJSONArray("data").getJSONObject(i).getString("type").equals("POI"))){
-                        jsonTreated.put("element "+compteur,jsonObject.getJSONArray("data").getJSONObject(i));
+                    if ((jsonObject.getJSONArray("data").getJSONObject(i).getString("type").equals("Hotel")) || (jsonObject.getJSONArray("data").getJSONObject(i).getString("type").equals("restaurant")) || (jsonObject.getJSONArray("data").getJSONObject(i).getString("type").equals("CITY")) || (jsonObject.getJSONArray("data").getJSONObject(i).getString("type").equals("POI"))){
+                        jsonTreated.put(jsonObject.getJSONArray("data").getJSONObject(i));
                         compteur = compteur +1;
                     }
                 }
                 Log.i(TAG,"Number of entries" + jsonObject.length());
                 Log.i(TAG,"Number of locations before" + jsonObject.getJSONArray("data").length());
                 Log.i(TAG,"Number of locations after" + jsonTreated.length());
-                Log.i(TAG,"Recupere" + jsonTreated.toString());
+                /*for(int k=0;k<jsonTreated.length();k++){
+                    Log.i(TAG,"Recupere" + jsonTreated.getJSONObject(k).toString());
+                }*/
+
             }
             catch (MalformedURLException e){
                 Log.e(TAG,e.toString());

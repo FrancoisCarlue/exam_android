@@ -34,4 +34,13 @@ int distance;
     public void setDistance(int distance) {
         this.distance = distance;
     }
+
+    @Override
+    public String toString() {
+        return "Destination{" +
+                "type='" + type + '\'' +
+                ", title='" + title + '\'' +
+                ", distance=" + distance +
+                '}';
+    }
 }

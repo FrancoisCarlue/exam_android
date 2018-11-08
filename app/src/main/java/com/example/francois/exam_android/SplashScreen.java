@@ -40,7 +40,8 @@ public class SplashScreen extends AppCompatActivity {
         new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {
-                Intent i = new Intent(SplashScreen.this, NetworkActivity.class);
+                Intent i = new Intent(SplashScreen.this, MainActivity.class);
+                i.putExtra("jsonTreated",jsonTreated.toString());
                 startActivity(i);
                 finish();
             }

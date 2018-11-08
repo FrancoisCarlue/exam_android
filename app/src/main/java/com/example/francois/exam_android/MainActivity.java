@@ -5,7 +5,11 @@ import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ListView;
+import android.widget.TextView;
+import android.widget.Toast;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -39,6 +43,14 @@ public class MainActivity extends ListActivity {
         DestinationAdapter adapter = new DestinationAdapter(this, maBibliotheque);
         myListView.setAdapter(adapter);
         adapter.notifyDataSetChanged();
+
+
+        /*myListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                Toast.makeText(getApplicationContext(), ((TextView) view).getText(), Toast.LENGTH_SHORT).show();
+            }
+        });*/
     }
 
     private void RemplirLaBibliotheque() {

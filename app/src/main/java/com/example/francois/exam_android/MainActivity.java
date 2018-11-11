@@ -76,6 +76,21 @@ public class MainActivity extends ListActivity {
                         startActivity(intentRESTAURANT);
                         Log.i(TAG, "startactivity lancé");
                         break;
+
+                    case "HOTEL":
+                        Log.i(TAG, "HOTEL reconnu dans case");
+                        Intent intentHOTEL = null;
+                        try {
+                            intentHOTEL = new Intent(Intent.ACTION_VIEW,Uri.parse(jsonTransfere.getJSONObject(position).getString("web")));
+                            intentHOTEL.putExtra("id",maBibliotheque.get(position).getId());
+                            Log.i(TAG, "Intent créé");
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+                        Log.i(TAG, "putExtra fait");
+                        startActivity(intentHOTEL);
+                        Log.i(TAG, "startactivity lancé");
+                        break;
                 }
                 Toast.makeText(getApplicationContext(), "vous avez cliqué sur un "+maBibliotheque.get(position).getType(), Toast.LENGTH_SHORT).show();
             }

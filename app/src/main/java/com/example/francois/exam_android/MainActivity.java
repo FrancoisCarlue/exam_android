@@ -51,7 +51,7 @@ public class MainActivity extends ListActivity {
                 switch (maBibliotheque.get(position).getType()){
                     case "POI":
                         Log.i(TAG, "POI reconnu dans case");
-                        Intent intentPOI = new Intent(MainActivity.this,DetailsPOI.class);
+                        Intent intentPOI = new Intent(MainActivity.this,LoadingScreenActivity.class);
                         Log.i(TAG, "Intent créé");
                         intentPOI.putExtra("id",maBibliotheque.get(position).getId());
                         Log.i(TAG, "putExtra fait");

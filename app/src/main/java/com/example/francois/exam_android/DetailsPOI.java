@@ -33,9 +33,6 @@ public class DetailsPOI extends AppCompatActivity {
     ImageView imgViewLeft;
     ImageView imgViewMiddle;
     ImageView imgViewRight;
-    int nbMedia;
-
-    private static int LOADING_TIME_OUT = 3000;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,106 +40,15 @@ public class DetailsPOI extends AppCompatActivity {
         super.onCreate(savedInstanceState);
 
         Intent myIntent = getIntent();
-        Log.i(TAG, "getINtent fait");
-        id = myIntent.getStringExtra("id");
 
-        Log.i(TAG, "getExtra fait");
-
+        Log.i(TAG, "json details : " + myIntent.getStringExtra("jsonDetails"));
+        try {
+            jsonDetails = new JSONObject(myIntent.getStringExtra("jsonDetails"));
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
         tvTitle = findViewById(R.id.tvTitle);
         tvDescription = findViewById(R.id.tvDescription);
 
-        Log.i(TAG, "findviewbyID fait");
-
-        Thread background = new Thread(new Runnable() {
-            @Override
-            public void run() {
-                loadFlux();
-            }
-        });
-        background.start();
-
-        Log.i(TAG, "thread background fait");
-
-        new Handler().postDelayed(new Runnable() {
-            @Override
-            public void run() {
-
-                Log.i(TAG,jsonDetails.toString());
-
-                try {
-                    tvTitle.setText(jsonDetails.getString("name"));
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                    Log.i(TAG, "erreur catch string name");
-                }
-
-                Log.i(TAG,"premie try catch passé");
-
-                try {
-                    tvDescription.setText(jsonDetails.getString("description"));
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                    Log.i(TAG, "erreur catch string description");
-                }
-
-                Log.i(TAG,"2eùe try catch passé");
-
-                Picasso.get().load("https://www.jardindupicvert.com/19629-large_default/palmier-de-chine.jpg").into(imgViewLeft);
-
-
-                /*try {
-                    Log.i(TAG,"entré dans 3eme try catch");
-                    Picasso.get().load(jsonDetails.getJSONArray("medias").getJSONObject(0).getString("url")).into(imgViewLeft);
-
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                    Log.i(TAG, "erreur catch media");
-                }*/
-
-                Log.i(TAG,"3eme try catch passé");
-                setContentView(R.layout.activity_details_poi);
-            }
-        }, LOADING_TIME_OUT);
-    }
-
-
-    private void loadFlux(){
-        HttpURLConnection urlConnection = null;
-        try{
-            URL url = new URL("http://voyage2.corellis.eu/api/v2/poi?id="+id);
-            urlConnection = (HttpURLConnection) url.openConnection();
-            InputStream in = urlConnection.getInputStream();
-            String line = convertStreamtoString(in);
-            JSONObject jsonObject = new JSONObject(line);
-            jsonDetails = jsonObject.getJSONArray("data").getJSONObject(0);
-
-        }
-        catch (MalformedURLException e){
-            Log.e(TAG,e.toString());
-        }
-        catch (IOException e){
-            Log.e(TAG,e.toString());
-        }
-        catch (Exception e){
-            Log.e(TAG,e.toString());
-        }
-        finally {
-            urlConnection.disconnect();
-        }
-    }
-
-    private String convertStreamtoString(InputStream is){
-        String line = "";
-        StringBuilder total = new StringBuilder();
-        BufferedReader rd = new BufferedReader(new InputStreamReader(is));
-        try {
-            while ((line = rd.readLine()) != null) {
-                total.append(line);
-            }
-        }
-        catch (Exception e) {
-            Toast.makeText(this, "Stream Exception", Toast.LENGTH_SHORT).show();
-        }
-        return total.toString();
     }
 }

@@ -92,7 +92,6 @@ public class MainActivity extends ListActivity {
                         Log.i(TAG, "startactivity lancé");
                         break;
                 }
-                Toast.makeText(getApplicationContext(), "vous avez cliqué sur un "+maBibliotheque.get(position).getType(), Toast.LENGTH_SHORT).show();
             }
         });
     }
@@ -104,7 +103,10 @@ public class MainActivity extends ListActivity {
             for (int i = 0; i < jsonTransfere.length(); i++) {
 
                 String myURL = "";
-
+                double distance = -666.66; //code si jamais la distance n'existe pas
+                if (jsonTransfere.getJSONObject(i).has("distance")){
+                    distance = jsonTransfere.getJSONObject(i).getDouble("distance");
+                }
                 if (jsonTransfere.getJSONObject(i).getString("media").length()!=0 && jsonTransfere.getJSONObject(i).getString("media")!=null){
                     myURL = jsonTransfere.getJSONObject(i).getString("media");
                 }
@@ -112,15 +114,13 @@ public class MainActivity extends ListActivity {
                     myURL = "https://st2.depositphotos.com/5777248/10534/v/950/depositphotos_105340898-stock-illustration-palm-tropical-tree-icon-isometric.jpg";
                 }
                 if (jsonTransfere.getJSONObject(i).has("id")) {
-                    maBibliotheque.add(new Destination(jsonTransfere.getJSONObject(i).getString("type"), jsonTransfere.getJSONObject(i).getString("display"), jsonTransfere.getJSONObject(i).getString("id"), myURL));
+                    maBibliotheque.add(new Destination(jsonTransfere.getJSONObject(i).getString("type"), jsonTransfere.getJSONObject(i).getString("display"), jsonTransfere.getJSONObject(i).getString("id"), myURL,distance));
                 }
                 if (jsonTransfere.getJSONObject(i).has("poi_id")) {
-                    maBibliotheque.add(new Destination(jsonTransfere.getJSONObject(i).getString("type"), jsonTransfere.getJSONObject(i).getString("display"), jsonTransfere.getJSONObject(i).getString("poi_id"), myURL));
+                    maBibliotheque.add(new Destination(jsonTransfere.getJSONObject(i).getString("type"), jsonTransfere.getJSONObject(i).getString("display"), jsonTransfere.getJSONObject(i).getString("poi_id"), myURL,distance));
                 }
-                Log.i(TAG, "bibli remplie" + i);
             }
         } catch (JSONException e) {
-            Log.i(TAG, "bibli non remplie");
             e.printStackTrace();
         }
     }

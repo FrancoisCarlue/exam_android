@@ -16,11 +16,14 @@ import java.util.List;
 
 public class DestinationAdapter extends BaseAdapter {
 
+    private final static String TAG = "DestinationAdapter";
+
     List<Destination> biblio;
 
     public class ViewHolder{
         TextView tvType;
         TextView tvTitle;
+        TextView tvDistance;
         ImageView iv;
     }
 
@@ -59,22 +62,27 @@ public class DestinationAdapter extends BaseAdapter {
         final ViewHolder holder;
 
         if (convertView == null){
-            Log.v("test","converView is null");
             holder = new ViewHolder();
             convertView = getInflatedLayoutForType(getItemViewType(position));
             holder.tvType = (TextView) convertView.findViewById(R.id.txtType);
             holder.tvTitle = (TextView) convertView.findViewById(R.id.txtTitle);
+            holder.tvDistance = (TextView) convertView.findViewById(R.id.txtDistance);
             holder.iv = (ImageView) convertView.findViewById(R.id.imgView) ;
             convertView.setTag(holder);
         }
         else {
-            Log.v("test","convertView is not null");
             holder = (ViewHolder) convertView.getTag();
         }
 
         Destination destination = biblio.get(position);
         holder.tvType.setText(destination.getType());
         holder.tvTitle.setText(destination.getTitle());
+        if (destination.getDistance() != -666.66){
+            holder.tvDistance.setText(""+destination.arrondiDistance()+" km");
+        }
+        else {
+            holder.tvDistance.setText("Distance inconnue");
+        }
         Picasso.get().load(destination.getURL()).into(holder.iv, new Callback() {
             @Override
             public void onSuccess() {

@@ -1,18 +1,26 @@
 package com.example.francois.exam_android;
 
+import java.text.DecimalFormat;
+
 public class Destination {
 
 String type;
 String title;
 String id;
-String URL;
-int distance;
+String url;
+double distance;
+private static DecimalFormat df3 = new DecimalFormat(".###");
 
-    public Destination(String type,String title,String id,String URL){
+    public Destination(String type,String title,String id,String url,double distance){
         this.type = type;
         this.title = title;
         this.id = id;
-        this.URL = URL;
+        this.url = url;
+        this.distance = distance;
+    }
+
+    public String arrondiDistance(){
+        return String.format("%.2f", getDistance());
     }
 
     public String getType() {
@@ -31,11 +39,11 @@ int distance;
         this.title = title;
     }
 
-    public int getDistance() {
+    public double getDistance() {
         return distance;
     }
 
-    public void setDistance(int distance) {
+    public void setDistance(double distance) {
         this.distance = distance;
     }
 
@@ -48,11 +56,11 @@ int distance;
     }
 
     public String getURL() {
-        return URL;
+        return url;
     }
 
     public void setURL(String URL) {
-        this.URL = URL;
+        this.url = URL;
     }
 
     @Override

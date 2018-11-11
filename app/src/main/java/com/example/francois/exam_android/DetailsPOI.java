@@ -44,7 +44,7 @@ public class DetailsPOI extends AppCompatActivity {
             tvTitle.setText(jsonDetails.getString("name"));
             tvDescription.setText(jsonDetails.getString("description"));
             if (nbMedia==1){
-                Picasso.get().load(jsonDetails.getJSONArray("medias").getJSONObject(0).getString("url")).into(imgViewLeft);
+                Picasso.get().load(jsonDetails.getJSONArray("medias").getJSONObject(0).getString("url")).into(imgViewMiddle);
             }
             if (nbMedia==2){
                 Picasso.get().load(jsonDetails.getJSONArray("medias").getJSONObject(0).getString("url")).into(imgViewLeft);

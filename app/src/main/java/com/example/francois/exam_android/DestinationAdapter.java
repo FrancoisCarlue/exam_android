@@ -9,6 +9,7 @@ import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.squareup.picasso.Callback;
 import com.squareup.picasso.Picasso;
 
 import java.util.List;
@@ -31,7 +32,7 @@ public class DestinationAdapter extends BaseAdapter {
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
-        ViewHolder holder;
+        final ViewHolder holder;
 
         if (convertView == null){
             Log.v("test","converView is null");
@@ -50,7 +51,17 @@ public class DestinationAdapter extends BaseAdapter {
         Destination destination = biblio.get(position);
         holder.tvType.setText(destination.getType());
         holder.tvTitle.setText(destination.getTitle());
-        Picasso.get().load(destination.getURL()).into(holder.iv);
+        Picasso.get().load(destination.getURL()).into(holder.iv, new Callback() {
+            @Override
+            public void onSuccess() {
+
+            }
+
+            @Override
+            public void onError(Exception e) {
+                Picasso.get().load("https://st2.depositphotos.com/5777248/10534/v/950/depositphotos_105340898-stock-illustration-palm-tropical-tree-icon-isometric.jpg").into(holder.iv);
+            }
+        });
         return convertView;
     }
 

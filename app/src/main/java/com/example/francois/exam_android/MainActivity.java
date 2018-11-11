@@ -78,7 +78,12 @@ public class MainActivity extends ListActivity {
                 else {
                     myURL = "https://st2.depositphotos.com/5777248/10534/v/950/depositphotos_105340898-stock-illustration-palm-tropical-tree-icon-isometric.jpg";
                 }
-                maBibliotheque.add(new Destination(jsonTransfere.getJSONObject(i).getString("type"), jsonTransfere.getJSONObject(i).getString("display"),jsonTransfere.getJSONObject(i).getString("id"),myURL));
+                if (jsonTransfere.getJSONObject(i).has("id")) {
+                    maBibliotheque.add(new Destination(jsonTransfere.getJSONObject(i).getString("type"), jsonTransfere.getJSONObject(i).getString("display"), jsonTransfere.getJSONObject(i).getString("id"), myURL));
+                }
+                if (jsonTransfere.getJSONObject(i).has("poi_id")) {
+                    maBibliotheque.add(new Destination(jsonTransfere.getJSONObject(i).getString("type"), jsonTransfere.getJSONObject(i).getString("display"), jsonTransfere.getJSONObject(i).getString("poi_id"), myURL));
+                }
                 Log.i(TAG, "bibli remplie" + i);
             }
         } catch (JSONException e) {

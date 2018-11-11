@@ -20,7 +20,7 @@ import java.net.URL;
 
 public class SplashScreen extends AppCompatActivity {
 
-    private final static String TAG = "NetworkActivity";
+    private final static String TAG = "SplashScreen";
     JSONArray jsonTreated = new JSONArray();
 
     private static int SPLASH_TIME_OUT = 3000;
@@ -53,7 +53,7 @@ public class SplashScreen extends AppCompatActivity {
         private void loadFlux(){
             HttpURLConnection urlConnection = null;
             try{
-                URL url = new URL("http://voyage2.corellis.eu/api/v2/homev2?lat=43.14554197717751&lon=6.00.246207789145&offset=0");
+                URL url = new URL("http://voyage2.corellis.eu/api/v2/homev2?lat=43.295697&lon=5.374514&offset=0");
                 urlConnection = (HttpURLConnection) url.openConnection();
                 InputStream in = urlConnection.getInputStream();
                 String line = convertStreamtoString(in);
@@ -61,7 +61,8 @@ public class SplashScreen extends AppCompatActivity {
                 int compteur = 1;
 
                 for(int i=0;i<jsonObject.getJSONArray("data").length();i++){
-                    if ((jsonObject.getJSONArray("data").getJSONObject(i).getString("type").equals("Hotel")) || (jsonObject.getJSONArray("data").getJSONObject(i).getString("type").equals("restaurant")) || (jsonObject.getJSONArray("data").getJSONObject(i).getString("type").equals("CITY")) || (jsonObject.getJSONArray("data").getJSONObject(i).getString("type").equals("POI"))){
+                    Log.i(TAG,"type" + jsonObject.getJSONArray("data").getJSONObject(i).getString("type").equals("HOTEL"));
+                    if ((jsonObject.getJSONArray("data").getJSONObject(i).getString("type").equals("HOTEL")) || (jsonObject.getJSONArray("data").getJSONObject(i).getString("type").equals("RESTAURANT")) || (jsonObject.getJSONArray("data").getJSONObject(i).getString("type").equals("CITY")) || (jsonObject.getJSONArray("data").getJSONObject(i).getString("type").equals("POI"))){
                         jsonTreated.put(jsonObject.getJSONArray("data").getJSONObject(i));
                         compteur = compteur +1;
                     }
@@ -69,6 +70,7 @@ public class SplashScreen extends AppCompatActivity {
                 Log.i(TAG,"Number of entries" + jsonObject.length());
                 Log.i(TAG,"Number of locations before" + jsonObject.getJSONArray("data").length());
                 Log.i(TAG,"Number of locations after" + jsonTreated.length());
+                Log.i(TAG,"jsonTreated: "+jsonTreated.toString());
                 /*for(int k=0;k<jsonTreated.length();k++){
                     Log.i(TAG,"Recupere" + jsonTreated.getJSONObject(k).toString());
                 }*/

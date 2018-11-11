@@ -1,9 +1,11 @@
 package com.example.francois.exam_android;
 
 import android.content.Intent;
+import android.net.Uri;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -43,7 +45,7 @@ public class DetailsPOI extends AppCompatActivity {
         try {
             jsonDetails = new JSONObject(myIntent.getStringExtra("jsonDetails"));
             nbMedia = jsonDetails.getJSONArray("medias").length();
-            splitter = jsonDetails.getString("description").split("\n");
+            splitter = jsonDetails.getString("description").split("\n"); //pour retirer le doublon de titre en fin de description
 
             tvTitle.setText(jsonDetails.getString("name"));
             tvDescription.setText(splitter[0]);
@@ -64,6 +66,20 @@ public class DetailsPOI extends AppCompatActivity {
         } catch (JSONException e) {
             e.printStackTrace();
         }
+
+
+        imgViewMiddle.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                try {
+                    Intent middleIntent = new Intent(Intent.ACTION_VIEW,Uri.parse(jsonDetails.getJSONArray("medias").getJSONObject(0).getString("url")));
+                    middleIntent.putExtra("title",jsonDetails.getString("name"));
+                    startActivity(middleIntent);
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
+        });
 
 
     }

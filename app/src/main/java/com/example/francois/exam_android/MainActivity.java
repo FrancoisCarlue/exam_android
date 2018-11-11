@@ -50,9 +50,13 @@ public class MainActivity extends ListActivity {
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 switch (maBibliotheque.get(position).getType()){
                     case "POI":
+                        Log.i(TAG, "POI reconnu dans case");
                         Intent intentPOI = new Intent(MainActivity.this,DetailsPOI.class);
+                        Log.i(TAG, "Intent créé");
                         intentPOI.putExtra("id",maBibliotheque.get(position).getId());
+                        Log.i(TAG, "putExtra fait");
                         startActivity(intentPOI);
+                        Log.i(TAG, "startactivity lancé");
                 }
                 Toast.makeText(getApplicationContext(), "vous avez cliqué sur un "+maBibliotheque.get(position).getType(), Toast.LENGTH_SHORT).show();
             }
@@ -65,9 +69,16 @@ public class MainActivity extends ListActivity {
         try {
             for (int i = 0; i < jsonTransfere.length(); i++) {
 
-                Log.i(TAG, "bibli remplie" + i);
-                maBibliotheque.add(new Destination(jsonTransfere.getJSONObject(i).getString("type"), jsonTransfere.getJSONObject(i).getString("display"),jsonTransfere.getJSONObject(i).getString("id")));
+                String myURL = "";
 
+                if (jsonTransfere.getJSONObject(i).getString("media").length()!=0 && jsonTransfere.getJSONObject(i).getString("media")!=null){
+                    myURL = jsonTransfere.getJSONObject(i).getString("media");
+                }
+                else {
+                    myURL = "https://st2.depositphotos.com/5777248/10534/v/950/depositphotos_105340898-stock-illustration-palm-tropical-tree-icon-isometric.jpg";
+                }
+                maBibliotheque.add(new Destination(jsonTransfere.getJSONObject(i).getString("type"), jsonTransfere.getJSONObject(i).getString("display"),jsonTransfere.getJSONObject(i).getString("id"),myURL));
+                Log.i(TAG, "bibli remplie" + i);
             }
         } catch (JSONException e) {
             Log.i(TAG, "bibli non remplie");

@@ -6,7 +6,10 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.ImageView;
 import android.widget.TextView;
+
+import com.squareup.picasso.Picasso;
 
 import java.util.List;
 
@@ -17,6 +20,7 @@ public class DestinationAdapter extends BaseAdapter {
     public class ViewHolder{
         TextView tvType;
         TextView tvTitle;
+        ImageView iv;
     }
 
     LayoutInflater inflater;
@@ -35,6 +39,7 @@ public class DestinationAdapter extends BaseAdapter {
             convertView = inflater.inflate(R.layout.destination_item, null);
             holder.tvType = (TextView) convertView.findViewById(R.id.txtType);
             holder.tvTitle = (TextView) convertView.findViewById(R.id.txtTitle);
+            holder.iv = (ImageView) convertView.findViewById(R.id.imgView) ;
             convertView.setTag(holder);
         }
         else {
@@ -45,6 +50,7 @@ public class DestinationAdapter extends BaseAdapter {
         Destination destination = biblio.get(position);
         holder.tvType.setText(destination.getType());
         holder.tvTitle.setText(destination.getTitle());
+        Picasso.get().load(destination.getURL()).into(holder.iv);
         return convertView;
     }
 

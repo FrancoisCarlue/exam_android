@@ -5,12 +5,14 @@ public class Destination {
 String type;
 String title;
 String id;
+String URL;
 int distance;
 
-    public Destination(String type,String title,String id){
+    public Destination(String type,String title,String id,String URL){
         this.type = type;
         this.title = title;
         this.id = id;
+        this.URL = URL;
     }
 
     public String getType() {
@@ -43,6 +45,14 @@ int distance;
 
     public void setId(String id) {
         this.id = id;
+    }
+
+    public String getURL() {
+        return URL;
+    }
+
+    public void setURL(String URL) {
+        this.URL = URL;
     }
 
     @Override

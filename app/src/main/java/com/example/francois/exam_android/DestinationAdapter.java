@@ -31,13 +31,37 @@ public class DestinationAdapter extends BaseAdapter {
     }
 
     @Override
+    public int getItemViewType(int position) {
+        return position % 2;
+    }
+
+    @Override
+    public int getViewTypeCount() {
+        return 2;
+    }
+
+    private View getInflatedLayoutForType(int type) {
+        View convertView;
+        if (type == 0) {
+            convertView = inflater.inflate(R.layout.destination_item, null);
+            return convertView;
+        }
+        else {
+            convertView = inflater.inflate(R.layout.reversed_destination_item, null);
+            return convertView;
+        }
+    }
+
+
+
+    @Override
     public View getView(int position, View convertView, ViewGroup parent) {
         final ViewHolder holder;
 
         if (convertView == null){
             Log.v("test","converView is null");
             holder = new ViewHolder();
-            convertView = inflater.inflate(R.layout.destination_item, null);
+            convertView = getInflatedLayoutForType(getItemViewType(position));
             holder.tvType = (TextView) convertView.findViewById(R.id.txtType);
             holder.tvTitle = (TextView) convertView.findViewById(R.id.txtTitle);
             holder.iv = (ImageView) convertView.findViewById(R.id.imgView) ;

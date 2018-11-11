@@ -45,12 +45,18 @@ public class MainActivity extends ListActivity {
         adapter.notifyDataSetChanged();
 
 
-        /*myListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+        myListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                Toast.makeText(getApplicationContext(), ((TextView) view).getText(), Toast.LENGTH_SHORT).show();
+                switch (maBibliotheque.get(position).getType()){
+                    case "POI":
+                        Intent intentPOI = new Intent(MainActivity.this,DetailsPOI.class);
+                        intentPOI.putExtra("id",maBibliotheque.get(position).getId());
+                        startActivity(intentPOI);
+                }
+                Toast.makeText(getApplicationContext(), "vous avez cliqué sur un "+maBibliotheque.get(position).getType(), Toast.LENGTH_SHORT).show();
             }
-        });*/
+        });
     }
 
     private void RemplirLaBibliotheque() {
@@ -60,7 +66,7 @@ public class MainActivity extends ListActivity {
             for (int i = 0; i < jsonTransfere.length(); i++) {
 
                 Log.i(TAG, "bibli remplie" + i);
-                maBibliotheque.add(new Destination(jsonTransfere.getJSONObject(i).getString("type"), jsonTransfere.getJSONObject(i).getString("display")));
+                maBibliotheque.add(new Destination(jsonTransfere.getJSONObject(i).getString("type"), jsonTransfere.getJSONObject(i).getString("display"),jsonTransfere.getJSONObject(i).getString("id")));
 
             }
         } catch (JSONException e) {

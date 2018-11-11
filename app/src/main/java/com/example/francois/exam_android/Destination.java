@@ -4,11 +4,13 @@ public class Destination {
 
 String type;
 String title;
+String id;
 int distance;
 
-    public Destination(String type,String title){
+    public Destination(String type,String title,String id){
         this.type = type;
         this.title = title;
+        this.id = id;
     }
 
     public String getType() {
@@ -33,6 +35,14 @@ int distance;
 
     public void setDistance(int distance) {
         this.distance = distance;
+    }
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
     }
 
     @Override

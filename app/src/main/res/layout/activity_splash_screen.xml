@@ -5,14 +5,31 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".SplashScreen"
-    android:orientation="vertical">
+    android:background="@drawable/palmier">
 
-    <ImageView
-        android:id="@+id/imgLogo"
-        android:layout_width="400dp"
-        android:layout_height="match_parent"
-        android:layout_centerInParent="true"
-        android:src="@drawable/palmier"
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Dreams are close to you..."
+        android:textStyle="bold"
+        android:layout_centerHorizontal="true"
+        android:textColor="#FFFFFF"
+        android:textSize="25dp"
+        android:layout_above="@+id/mainSpinner"
+        android:layout_marginBottom="40dp"
         />
+
+
+
+    <ProgressBar
+        android:id="@+id/mainSpinner"
+        style="?android:attr/progressBarStyleInverse"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_gravity="center"
+        android:layout_marginBottom="115dp"
+        android:indeterminate="true" />
 
 </RelativeLayout>

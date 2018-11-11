@@ -57,6 +57,7 @@ public class MainActivity extends ListActivity {
                         Log.i(TAG, "putExtra fait");
                         startActivity(intentPOI);
                         Log.i(TAG, "startactivity lancé");
+                        break;
                 }
                 Toast.makeText(getApplicationContext(), "vous avez cliqué sur un "+maBibliotheque.get(position).getType(), Toast.LENGTH_SHORT).show();
             }

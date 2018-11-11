@@ -16,6 +16,8 @@ public class DetailsPOI extends AppCompatActivity {
 
     private final static String TAG = "DetailsPOIActivity";
     String id;
+    String[] splitter;
+
     JSONObject jsonDetails;
     TextView tvTitle;
     TextView tvDescription;
@@ -41,8 +43,11 @@ public class DetailsPOI extends AppCompatActivity {
         try {
             jsonDetails = new JSONObject(myIntent.getStringExtra("jsonDetails"));
             nbMedia = jsonDetails.getJSONArray("medias").length();
+            splitter = jsonDetails.getString("description").split("\n");
+
             tvTitle.setText(jsonDetails.getString("name"));
-            tvDescription.setText(jsonDetails.getString("description"));
+            tvDescription.setText(splitter[0]);
+
             if (nbMedia==1){
                 Picasso.get().load(jsonDetails.getJSONArray("medias").getJSONObject(0).getString("url")).into(imgViewMiddle);
             }
